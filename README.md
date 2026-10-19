@@ -99,7 +99,7 @@ The command regenerates the fictional input data, validates all records, and rew
 python -m pytest -q
 ```
 
-The project currently includes 10 automated tests covering positive and negative rule outcomes. Pytest discovers `test_*.py` files and uses standard Python `assert` statements for test expectations. [cite:455][cite:329]
+The project currently includes 10 automated tests covering positive and negative rule outcomes. Pytest discovers `test_*.py` files and uses standard Python `assert` statements for test expectations. 
 
 ## Continuous Integration
 

@@ -52,6 +52,15 @@ R004: 2
 R005: 3
 R006: 3
 ```
+## Evidence
+
+Terminal execution showing test and pipeline results:
+
+![Terminal test and pipeline run](images/terminal-run)
+
+Example exception report using fictional data:
+
+![Exception report preview](images/exception-report-preview.png)
 
 ## Outputs
 

@@ -1,0 +1,5 @@
+{
+  "jackpot_max_amount": 10000.0,
+  "jackpot_secondary_approval_threshold": 5000.0,
+  "allow_future_timestamps": false
+}

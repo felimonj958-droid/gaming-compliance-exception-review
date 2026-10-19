@@ -1,33 +1,16 @@
 from __future__ import annotations
 
-from datetime import datetime
 from typing import Any
 
 import pandas as pd
 
 
 def is_blank(value: Any) -> bool:
+    """Return True for missing values, empty strings, or whitespace-only strings."""
     if pd.isna(value):
         return True
-    if isinstance(value, str) and value.strip() == "":
-        return True
-    return False
 
-
-def parse_dt(value: Any) -> datetime | None:
-    if is_blank(value):
-        return None
-    try:
-        return pd.to_datetime(value).to_pydatetime()
-    except Exception:
-        return None
-
-
-def safe_float(value: Any) -> float | None:
-    try:
-        return float(value)
-    except Exception:
-        return None
+    return isinstance(value, str) and value.strip() == ""
 
 
 def make_exception(
@@ -38,7 +21,8 @@ def make_exception(
     bad_value: Any,
     issue: str,
     recommended_action: str = "manual_review",
-) -> dict:
+) -> dict[str, Any]:
+    """Create one consistently formatted exception record."""
     return {
         "record_type": record_type,
         "record_id": record_id,

@@ -1,0 +1,8 @@
+
+# Generated and local-only files
+data/input/*.csv
+data/output/*.csv
+data/output/*.json
+.cache/
+__pycache__/
+*.py[cod]

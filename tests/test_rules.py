@@ -117,3 +117,63 @@ def test_controlled_material_rule_identifies_missing_field():
     assert len(exceptions) == 1
     assert exceptions[0]["field_name"] == "asset_id"
     assert exceptions[0]["rule_id"] == "R006"
+
+
+def test_jackpot_amount_limit_does_not_flag_valid_amount():
+    df = pd.DataFrame(
+        [{"event_id": "JPT-VALID", "jackpot_amount": 9999.99}]
+    )
+
+    exceptions = check_jackpot_amount_limits(df, max_amount=10000.0)
+
+    assert exceptions == []
+
+
+def test_secondary_approval_accepts_complete_high_value_record():
+    df = pd.DataFrame(
+        [
+            {
+                "event_id": "JPT-APPROVED",
+                "jackpot_amount": 6500.0,
+                "secondary_approver_id": "SUP-001",
+                "approval_timestamp": "2026-10-01T11:00:00",
+            }
+        ]
+    )
+
+    exceptions = check_secondary_approval(df, approval_threshold=5000.0)
+
+    assert exceptions == []
+
+
+def test_controlled_material_rule_accepts_complete_record():
+    df = pd.DataFrame(
+        [
+            {
+                "record_id": "CM-VALID",
+                "asset_id": "ASSET-001",
+                "technician_id": "TECH-001",
+                "work_order_id": "WO-001",
+            }
+        ]
+    )
+
+    exceptions = check_controlled_material_supporting_fields(df)
+
+    assert exceptions == []
+
+
+def test_timestamp_rule_accepts_valid_time_sequence():
+    df = pd.DataFrame(
+        [
+            {
+                "event_id": "JPT-VALID",
+                "event_timestamp": "2026-01-01T10:00:00",
+                "approval_timestamp": "2026-01-01T10:05:00",
+            }
+        ]
+    )
+
+    exceptions = check_jackpot_timestamps(df)
+
+    assert exceptions == []
